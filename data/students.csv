@@ -1,8 +1,4 @@
-id,regNo,name,email,dob
-4,S999,Test User,test@test.com,2000-01-01
-3,24BCE12212,Gopal,gopal.24bce12212@vitbhopal.ac.in,2002-11-30
-5,R001,Rafi,rafi@example.com,2000-01-01
+id,regNo,fullName,email,dob
 1,24BCE10264,Yash,yash.24bce10264@vitbhopal.ac.in,2002-05-15
 2,24BCE10009,Bunty,bunty.24bce10009@vitbhopal.ac.in,2001-08-22
-6,IO-TEST,Export Bot,bot@io.com,2025-01-01
-99,IMP-TEST,Import Man,import@io.com,2020-01-01
+3,24BCE12212,Gopal,gopal.24bce12212@vitbhopal.ac.in,2002-11-30

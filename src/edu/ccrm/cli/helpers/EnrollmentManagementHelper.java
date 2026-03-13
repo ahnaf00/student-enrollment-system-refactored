@@ -1,35 +1,35 @@
-package edu.ccrm.cli.command;
+package edu.ccrm.cli.helpers;
 
 import java.util.Scanner;
+
 import edu.ccrm.exception.DuplicateEnrollmentException;
 import edu.ccrm.exception.MaxCreditLimitExceededException;
 import edu.ccrm.service.EnrollmentService;
 import edu.ccrm.util.InputValidator;
 
-public class ManageEnrollmentsCommand implements MenuCommand {
+public class EnrollmentManagementHelper {
     private final EnrollmentService enrollmentService;
-
-    public ManageEnrollmentsCommand(EnrollmentService enrollmentService) {
+    
+    public EnrollmentManagementHelper(EnrollmentService enrollmentService) {
         this.enrollmentService = enrollmentService;
     }
-
-    @Override
-    public void execute(Scanner scanner) {
+    
+    public void handleEnrollmentManagement(Scanner scanner) {
         System.out.println("\n--- Enrollment & Grading ---");
         System.out.println("1. Enroll Student in Course");
         System.out.println("2. Record Grade for Student");
-
+        
         int choice = InputValidator.getInt(scanner, "Enter choice: ");
         String regNo = InputValidator.getString(scanner, "Enter Student Registration No: ");
         String courseCode = InputValidator.getString(scanner, "Enter Course Code (e.g., CS101): ");
-
+        
         switch (choice) {
             case 1 -> enrollStudent(regNo, courseCode);
             case 2 -> recordGrade(scanner, regNo, courseCode);
             default -> System.out.println("Invalid choice.");
         }
     }
-
+    
     private void enrollStudent(String regNo, String courseCode) {
         try {
             enrollmentService.enrollStudent(regNo, courseCode);
@@ -39,7 +39,7 @@ public class ManageEnrollmentsCommand implements MenuCommand {
             System.err.println("Error: " + e.getMessage());
         }
     }
-
+    
     private void recordGrade(Scanner scanner, String regNo, String courseCode) {
         int marks = InputValidator.getInt(scanner, "Enter marks (0-100): ");
         try {

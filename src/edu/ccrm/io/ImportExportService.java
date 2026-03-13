@@ -5,50 +5,44 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import edu.ccrm.config.AppConfig;
+import edu.ccrm.domain.Course;
+import edu.ccrm.domain.CourseCode;
 import edu.ccrm.domain.Instructor;
-import edu.ccrm.io.template.*;
-import edu.ccrm.repository.*;
+import edu.ccrm.domain.Semester;
+import edu.ccrm.domain.Student;
+import edu.ccrm.service.DataStore;
 
 public class ImportExportService {
-    private final IInstructorRepository instructorRepo;
-    private final List<CsvImportHandler> importHandlers;
-    private final List<CsvExportHandler<?>> exportHandlers;
-    private final Path dataDir;
-
-    public ImportExportService(IStudentRepository studentRepo, 
-                               ICourseRepository courseRepo, 
-                               IInstructorRepository instructorRepo) {
-        this.instructorRepo = instructorRepo;
-        this.dataDir = Paths.get(AppConfig.getInstance().getDataDirectory());
-
-        this.importHandlers = Arrays.asList(
-            new StudentCsvImporter(studentRepo, dataDir),
-            new CourseCsvImporter(courseRepo, instructorRepo, dataDir)
-        );
-
-        this.exportHandlers = Arrays.asList(
-            new StudentCsvExporter(studentRepo, dataDir),
-            new CourseCsvExporter(courseRepo, dataDir),
-            new EnrollmentCsvExporter(studentRepo, dataDir)
-        );
+    private final StudentCsvService studentCsvService;
+    private final CourseCsvService courseCsvService;
+    private final EnrollmentCsvService enrollmentCsvService;
+    private final InstructorSetupService instructorSetupService;
+    
+    public ImportExportService(DataStore dataStore) {
+        Path dataDir = Paths.get(AppConfig.getInstance().getDataDirectory());
+        
+        this.studentCsvService = new StudentCsvService(dataStore, dataDir);
+        this.courseCsvService = new CourseCsvService(dataStore, dataDir);
+        this.enrollmentCsvService = new EnrollmentCsvService(dataStore, dataDir);
+        this.instructorSetupService = new InstructorSetupService(dataStore);
     }
 
     public void importData() {
         try {
+            Path dataDir = Paths.get(AppConfig.getInstance().getDataDirectory());
             if (!Files.exists(dataDir)) {
                 Files.createDirectories(dataDir);
             }
 
-            importInstructors();
-
-            for (CsvImportHandler handler : importHandlers) {
-                handler.importData();
-            }
-
+            instructorSetupService.initializeInstructors();
+            courseCsvService.importCourses();
+            studentCsvService.importStudents();
+            
             System.out.println("Data imported successfully from '" + dataDir + "' directory.");
         } catch (IOException e) {
             System.err.println("Error during data import: " + e.getMessage());
@@ -57,24 +51,14 @@ public class ImportExportService {
 
     public void exportData() {
         try {
-            if (!Files.exists(dataDir)) {
-                Files.createDirectories(dataDir);
-            }
-
-            for (CsvExportHandler<?> handler : exportHandlers) {
-                handler.export();
-            }
-
+            studentCsvService.exportStudents();
+            courseCsvService.exportCourses();
+            enrollmentCsvService.exportEnrollments();
+            
+            Path dataDir = Paths.get(AppConfig.getInstance().getDataDirectory());
             System.out.println("Data exported successfully to '" + dataDir + "' directory.");
         } catch (IOException e) {
             System.err.println("Error during data export: " + e.getMessage());
         }
-    }
-
-    private void importInstructors() {
-         instructorRepo.save(new Instructor(1, "Dr. Alan Turing", "alan.t@bletchley.uk",
-                 LocalDate.of(1912, 6, 23), "Computer Science", "A101"));
-         instructorRepo.save(new Instructor(2, "Dr. Grace Hopper", "grace.h@yale.edu",
-                 LocalDate.of(1906, 12, 9), "Computer Science", "B202"));
     }
 }

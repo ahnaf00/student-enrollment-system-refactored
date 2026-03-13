@@ -8,42 +8,42 @@ import edu.ccrm.domain.Course;
 import edu.ccrm.domain.Enrollment;
 import edu.ccrm.domain.Student;
 import edu.ccrm.exception.StudentNotFoundException;
-import edu.ccrm.repository.IStudentRepository;
 
 public class StudentService {
-    private final IStudentRepository studentRepository;
-
-    public StudentService(IStudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
+    private final DataStore dataStore;
+    
+    public StudentService(DataStore dataStore) {
+        this.dataStore = dataStore;
     }
-
+    
     public void addStudent(Student student) {
-        studentRepository.save(student);
+        dataStore.addStudent(student);
     }
-
+    
     public Student findStudentByRegNo(String regNo) {
-        return studentRepository.findByRegNo(regNo)
-            .orElseThrow(() -> new StudentNotFoundException(
-                "Student with Registration No '" + regNo + "' not found."));
+        Student student = dataStore.getStudent(regNo);
+        if (student == null) {
+            throw new StudentNotFoundException("Student with Registration No '" + regNo + "' not found.");
+        }
+        return student;
     }
-
+    
     public List<Student> getAllStudents() {
-        return studentRepository.findAll().stream()
-                .sorted(Comparator.comparing(Student::getRegNo))
-                .collect(Collectors.toList());
+        return dataStore.getAllStudents().stream()
+            .sorted(Comparator.comparing(Student::getRegNo))
+            .collect(Collectors.toList());
     }
-
+    
     public void updateStudentStatus(String regNo, Student.StudentStatus status) {
         Student student = findStudentByRegNo(regNo);
         student.setStatus(status);
-        studentRepository.save(student);
     }
-
 
     public String getStudentTranscript(String regNo) {
         Student student = findStudentByRegNo(regNo);
         StringBuilder transcript = new StringBuilder();
         
+        // Polymorphism: Calling getProfile() on a Student object
         transcript.append(student.getProfile()).append("\n\n");
         transcript.append("--- Academic Transcript ---\n");
 
@@ -69,7 +69,7 @@ public class StudentService {
         int totalCredits = 0;
 
         for (Enrollment en : student.getEnrolledCourses()) {
-            if (en.getGrade().getGradePoint() >= 0) {
+            if (en.getGrade().getGradePoint() >= 0) { // Exclude 'NA' grades
                 totalPoints += en.getGrade().getGradePoint() * en.getCourse().getCredits();
                 totalCredits += en.getCourse().getCredits();
             }
