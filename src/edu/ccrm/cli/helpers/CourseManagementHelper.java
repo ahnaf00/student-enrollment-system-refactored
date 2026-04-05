@@ -37,7 +37,7 @@ public class CourseManagementHelper {
     private void filterCourses(Scanner scanner) {
         System.out.println("Filter by: 1. Instructor, 2. Department, 3. Semester");
         int filterChoice = InputValidator.getInt(scanner, "Enter filter type: ");
-        Predicate<Course> filter = course -> true;
+        Predicate<Course> filter = getNoFilterPredicate();
         
         if (filterChoice == 1) {
             String name = InputValidator.getString(scanner, "Enter Instructor Name: ");
@@ -58,5 +58,8 @@ public class CourseManagementHelper {
         
         System.out.println("\n--- Filtered Courses ---");
         courseService.searchCourses(filter).forEach(System.out::println);
+    }
+    private Predicate<Course> getNoFilterPredicate() {
+        return course -> true;
     }
 }

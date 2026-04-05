@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import edu.ccrm.service.DataStore;
+import edu.ccrm.util.RecursiveFileUtils;
 
 public class EnrollmentCsvService {
     private final DataStore dataStore;
@@ -18,16 +19,14 @@ public class EnrollmentCsvService {
     }
     
     public void exportEnrollments() throws IOException {
-        if (!Files.exists(dataDir)) {
-            Files.createDirectories(dataDir);
-        }
+        RecursiveFileUtils.ensureDirectoryExists(dataDir);
         
         Path enrollmentsFile = dataDir.resolve("enrollments_export.csv");
         
         List<String> lines = dataStore.getAllStudents().stream()
-            .flatMap(s -> s.getEnrolledCourses().stream()
+            .flatMap(student -> student.getEnrolledCourses().stream()
                 .map(en -> String.format("%s,%s,%s",
-                    s.getRegNo(),
+                		student.getRegNo(),
                     en.getCourse().getCourseCode().getFullCode(),
                     en.getGrade())))
             .collect(Collectors.toList());

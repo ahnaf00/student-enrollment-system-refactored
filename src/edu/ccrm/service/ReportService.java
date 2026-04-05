@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import edu.ccrm.domain.Enrollment;
 import edu.ccrm.domain.Student;
+import edu.ccrm.util.GpaCalculator;
 
 public class ReportService {
     private final DataStore dataStore;
@@ -26,22 +26,11 @@ public class ReportService {
     }
     
     private String categorizeGpa(Student student) {
-        double gpa = calculateGpa(student);
+        double gpa = GpaCalculator.calculate(student);
         if (gpa >= 3.5) return "Excellent (3.5-4.0)";
         if (gpa >= 3.0) return "Good (3.0-3.49)";
         if (gpa >= 2.5) return "Average (2.5-2.99)";
         return "Below Average (<2.5)";
     }
-    
-    private double calculateGpa(Student student) {
-        double totalPoints = 0;
-        int totalCredits = 0;
-        for (Enrollment en : student.getEnrolledCourses()) {
-            if (en.getGrade().getGradePoint() >= 0) {
-                totalPoints += en.getGrade().getGradePoint() * en.getCourse().getCredits();
-                totalCredits += en.getCourse().getCredits();
-            }
-        }
-        return totalCredits == 0 ? 0.0 : totalPoints / totalCredits;
-    }
+
 }

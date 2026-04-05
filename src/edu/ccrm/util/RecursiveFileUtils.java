@@ -31,4 +31,14 @@ public class RecursiveFileUtils {
         }
         return size.get();
     }
+
+    /**
+     * Ensures a directory exists, creating it if necessary.
+     * Eliminates duplicated exists-check + createDirectories pattern.
+     */
+    public static void ensureDirectoryExists(Path dir) throws IOException {
+        if (!Files.exists(dir)) {
+            Files.createDirectories(dir);
+        }
+    }
 }

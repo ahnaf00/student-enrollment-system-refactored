@@ -11,10 +11,10 @@ import edu.ccrm.exception.MaxCreditLimitExceededException;
 public class EnrollmentService {
     private final StudentService studentService;
     private final CourseService courseService;
-    
-    public EnrollmentService(StudentService ss, CourseService cs) {
-        this.studentService = ss;
-        this.courseService = cs;
+ 
+    public EnrollmentService(StudentService studentService, CourseService courseService) {  // GOOD
+        this.studentService = studentService;
+        this.courseService = courseService;
     }
 
     public void enrollStudent(String regNo, String courseCode)
@@ -29,7 +29,6 @@ public class EnrollmentService {
         student.addEnrollment(newEnrollment);
         System.out.println("Enrollment successful!");
     }
-    
     public void recordGrade(String regNo, String courseCode, int marks) {
         Student student = studentService.findStudentByRegNo(regNo);
 
@@ -43,35 +42,30 @@ public class EnrollmentService {
         }
     }
 
-    private void validateNoDuplicateEnrollment(Student student, String courseCode) 
-        throws DuplicateEnrollmentException {
-        boolean alreadyEnrolled = student.getEnrolledCourses().stream()
-            .anyMatch(e -> e.getCourse().getCourseCode().getFullCode().equals(courseCode));
-        
+    private void validateNoDuplicateEnrollment(Student student, String courseCode)
+            throws DuplicateEnrollmentException {
+        boolean alreadyEnrolled = findEnrollment(student, courseCode) != null;
         if (alreadyEnrolled) {
             throw new DuplicateEnrollmentException(
-                "Student " + student.getRegNo() + " is already enrolled in course " + courseCode);
+                "Student " + student.getRegNo() + " is already enrolled in " + courseCode);
         }
     }
-
-    private void validateCreditLimit(Student student, Course course) 
-        throws MaxCreditLimitExceededException {
+     
+    private void validateCreditLimit(Student student, Course course)
+            throws MaxCreditLimitExceededException {
         int currentCredits = student.getEnrolledCourses().stream()
-            .filter(e -> e.getCourse().getSemester() == course.getSemester())
-            .mapToInt(e -> e.getCourse().getCredits())
-            .sum();
-        
-        int maxCredits = AppConfig.getInstance().getMaxCreditsPerSemester();
-        if (currentCredits + course.getCredits() > maxCredits) {
-            throw new MaxCreditLimitExceededException(
-                "Cannot enroll. Exceeds max credit limit of " + maxCredits + " for the semester.");
-        }
+                .filter(enrollment -> enrollment.getCourse().getSemester()
+                    == course.getSemester())
+                .mapToInt(enrollment -> enrollment.getCourse().getCredits())
+                .sum();
     }
-
+     
     private Enrollment findEnrollment(Student student, String courseCode) {
         return student.getEnrolledCourses().stream()
-            .filter(en -> en.getCourse().getCourseCode().getFullCode().equals(courseCode))
-            .findFirst()
-            .orElse(null);
+                .filter(enrollment ->
+                    enrollment.getCourse().getCourseCode().getFullCode()
+                        .equals(courseCode))
+                .findFirst().orElse(null);
     }
+
 }

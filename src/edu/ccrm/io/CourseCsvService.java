@@ -55,20 +55,12 @@ public class CourseCsvService {
     }
     
     public void exportCourses() throws IOException {
-        if (!Files.exists(dataDir)) {
-            Files.createDirectories(dataDir);
-        }
-        
-        Path coursesFile = dataDir.resolve("courses_export.csv");
-        
         List<String> lines = dataStore.getAllCourses().stream()
-            .map(c -> String.format("%s,%s,%d,%s,%d,%s",
-                c.getCourseCode().getFullCode(), c.getTitle(),
-                c.getCredits(), c.getSemester(),
-                c.getInstructor().getId(), c.getDepartment()))
-            .collect(Collectors.toList());
-        
-        lines.add(0, "courseCode,title,credits,semester,instructorId,department");
-        Files.write(coursesFile, lines);
+                .map(course -> String.format("%s,%s,%d,%s,%d,%s",
+                        course.getCourseCode().getFullCode(), course.getTitle(),
+                        course.getCredits(), course.getSemester(),
+                        course.getInstructor().getId(), course.getDepartment()))
+                .collect(Collectors.toList());
     }
+
 }

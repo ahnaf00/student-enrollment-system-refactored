@@ -30,8 +30,9 @@ public class CourseService {
     
     public List<Course> getAllCourses() {
         return dataStore.getAllCourses().stream()
-            .sorted(Comparator.comparing(c -> c.getCourseCode().getFullCode()))
-            .collect(Collectors.toList());
+                .sorted(Comparator.comparing(
+                    course -> course.getCourseCode().getFullCode()))
+                .collect(Collectors.toList());
     }
 
     public static Predicate<Course> filterByInstructor(String instructorName) {
