@@ -50,34 +50,27 @@ import edu.ccrm.util.InputValidator;
 public class CliManager {
     private static final Scanner scanner = new Scanner(System.in);
 
-    // ── Proxy Pattern: Wrapping DataStore with validation proxy ──
     private static final DataStoreInterface dataStore = new DataStoreProxy(new DataStore());
 
     private static final StudentService studentService = new StudentService(dataStore);
     private static final CourseService courseService = new CourseService(dataStore);
 
-    // ── Mediator Pattern: Coordinates between StudentService & CourseService ──
     private static final ServiceMediator mediator = new EnrollmentMediator(studentService, courseService);
 
-    // ── Strategy Pattern: Pluggable grading algorithm ──
     private static final GradingStrategy gradingStrategy = new StandardGradingStrategy();
 
-    // ── Observer + Decorator: Build enrollment service with all behavioral patterns ──
     private static final EnrollmentService baseEnrollmentService =
             new EnrollmentService(mediator, gradingStrategy);
 
-    // ── Decorator Pattern: Wrap with logging ──
     private static final EnrollmentServiceInterface enrollmentService =
             new LoggingEnrollmentDecorator(baseEnrollmentService);
 
-    // ── Bridge Pattern: Console renderer for reports ──
     private static final ReportRenderer reportRenderer = new ConsoleReportRenderer();
     private static final ReportService reportService = new ReportService(dataStore, reportRenderer);
 
     private static final ImportExportService importExportService = new ImportExportService(dataStore);
     private static final BackupService backupService = new BackupService();
 
-    // ── Factory Method Pattern: Used internally by helpers ──
     private static final StudentManagementHelper studentHelper =
             new StudentManagementHelper(studentService, dataStore);
     private static final CourseManagementHelper courseHelper =
@@ -90,7 +83,6 @@ public class CliManager {
             new ReportManagementHelper(reportService);
 
     public static void main(String[] args) {
-        // ── Observer Pattern: Register observers for enrollment events ──
         baseEnrollmentService.addObserver(new EnrollmentLogger());
         baseEnrollmentService.addObserver(new EnrollmentNotifier());
 

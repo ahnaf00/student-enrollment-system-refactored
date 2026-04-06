@@ -13,9 +13,7 @@ import edu.ccrm.domain.Instructor;
 import edu.ccrm.domain.Semester;
 import edu.ccrm.service.proxy.DataStoreInterface;
 
-/**
- * Proxy Pattern: Uses DataStoreInterface instead of concrete DataStore.
- */
+
 public class CourseCsvService {
     private final DataStoreInterface dataStore;
     private final Path dataDir;

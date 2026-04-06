@@ -10,9 +10,7 @@ import edu.ccrm.domain.Semester;
 import edu.ccrm.exception.CourseNotFoundException;
 import edu.ccrm.service.proxy.DataStoreInterface;
 
-/**
- * Proxy Pattern: Now uses DataStoreInterface instead of concrete DataStore.
- */
+
 public class CourseService {
     private final DataStoreInterface dataStore;
     

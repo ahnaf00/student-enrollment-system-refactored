@@ -8,7 +8,6 @@ import edu.ccrm.service.decorator.EnrollmentServiceInterface;
 import edu.ccrm.util.InputValidator;
 
 /**
- * Decorator Pattern: Uses EnrollmentServiceInterface instead of concrete EnrollmentService.
  * This allows transparent wrapping with LoggingEnrollmentDecorator.
  */
 public class EnrollmentManagementHelper {

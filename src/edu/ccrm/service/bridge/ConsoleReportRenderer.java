@@ -1,8 +1,6 @@
 package edu.ccrm.service.bridge;
 
-/**
- * Bridge Pattern — Concrete implementor that renders reports to the console.
- */
+
 public class ConsoleReportRenderer implements ReportRenderer {
 
     @Override

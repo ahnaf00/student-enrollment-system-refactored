@@ -7,7 +7,6 @@ import edu.ccrm.domain.Instructor;
 import edu.ccrm.domain.Student;
 
 /**
- * Proxy Pattern: Interface extracted from DataStore.
  * Both the real DataStore and the DataStoreProxy implement this interface,
  * making the proxy transparent to the calling code.
  */

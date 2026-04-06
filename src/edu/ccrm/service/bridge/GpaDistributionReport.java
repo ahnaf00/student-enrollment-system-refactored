@@ -9,7 +9,6 @@ import edu.ccrm.service.proxy.DataStoreInterface;
 import edu.ccrm.util.GpaCalculator;
 
 /**
- * Bridge Pattern — Refined abstraction.
  * Defines WHAT data the GPA report contains. Delegates rendering to ReportRenderer.
  */
 public class GpaDistributionReport extends Report {

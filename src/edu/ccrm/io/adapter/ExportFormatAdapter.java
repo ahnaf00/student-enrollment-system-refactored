@@ -4,7 +4,6 @@ import edu.ccrm.domain.Enrollment;
 import edu.ccrm.domain.Student;
 
 /**
- * Adapter Pattern: Interface that adapts internal domain objects to exportable format.
  * Decouples data format (CSV/JSON/XML) from the export logic.
  */
 public interface ExportFormatAdapter {

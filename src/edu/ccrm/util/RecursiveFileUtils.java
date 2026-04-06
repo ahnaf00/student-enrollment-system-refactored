@@ -5,14 +5,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * Utility class for recursive file operations.
- */
 public class RecursiveFileUtils {
 
     /**
      * Recursively computes the total size of a directory.
-     * Demonstrates: Recursion via Stream API (Files.walk).
      */
     public static long calculateDirectorySize(Path path) {
         AtomicLong size = new AtomicLong(0);

@@ -6,7 +6,6 @@ import edu.ccrm.exception.DuplicateEnrollmentException;
 import edu.ccrm.exception.MaxCreditLimitExceededException;
 
 /**
- * Decorator Pattern: Adds logging before and after enrollment operations.
  * Wraps any EnrollmentServiceInterface without modifying the original class.
  */
 public class LoggingEnrollmentDecorator extends EnrollmentServiceDecorator {

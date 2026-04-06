@@ -15,11 +15,7 @@ import edu.ccrm.io.adapter.ExportFormatAdapter;
 import edu.ccrm.service.proxy.DataStoreInterface;
 import edu.ccrm.util.RecursiveFileUtils;
 
-/**
- * Factory Method Pattern: Uses StudentFactory to create Student objects.
- * Adapter Pattern:        Uses ExportFormatAdapter for formatting export data.
- * Proxy Pattern:          Uses DataStoreInterface instead of concrete DataStore.
- */
+
 public class StudentCsvService {
     private final DataStoreInterface dataStore;
     private final Path dataDir;

@@ -1,7 +1,6 @@
 package edu.ccrm.service.bridge;
 
 /**
- * Bridge Pattern — Abstraction base class.
  * Defines WHAT to report. Delegates HOW to render to the ReportRenderer implementor.
  * Abstraction and implementation can vary independently.
  */

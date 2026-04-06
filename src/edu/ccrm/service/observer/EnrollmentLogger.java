@@ -5,9 +5,7 @@ import java.time.LocalDateTime;
 import edu.ccrm.domain.Course;
 import edu.ccrm.domain.Student;
 
-/**
- * Observer Pattern: Concrete observer that logs enrollment events with timestamps.
- */
+
 public class EnrollmentLogger implements EnrollmentObserver {
     @Override
     public void onEnrollment(Student student, Course course) {

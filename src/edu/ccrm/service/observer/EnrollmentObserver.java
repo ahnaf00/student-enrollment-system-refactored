@@ -4,7 +4,6 @@ import edu.ccrm.domain.Course;
 import edu.ccrm.domain.Student;
 
 /**
- * Observer Pattern: Interface for objects that want to be notified of enrollment events.
  * Decouples enrollment logic from side effects (logging, notifications, etc.).
  */
 public interface EnrollmentObserver {

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 /**
  * Abstract base class for Student and Instructor.
- * Demonstrates: Abstraction, Inheritance.
  */
 public abstract class Person {
     protected int id;
@@ -19,10 +18,8 @@ public abstract class Person {
         this.dateOfBirth = dateOfBirth;
     }
 
-    // Abstract method to be implemented by subclasses
     public abstract String getProfile();
 
-    // Getters and Setters (Encapsulation)
     public int getId() {
         return id;
     }

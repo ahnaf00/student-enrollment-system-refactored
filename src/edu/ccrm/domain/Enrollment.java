@@ -15,10 +15,9 @@ public class Enrollment {
         this.student = student;
         this.course = course;
         this.enrollmentDate = LocalDateTime.now();
-        this.grade = Grade.NA; // Default grade
+        this.grade = Grade.NA; 
     }
     
-    // Getters and Setters
     public Student getStudent() {
         return student;
     }

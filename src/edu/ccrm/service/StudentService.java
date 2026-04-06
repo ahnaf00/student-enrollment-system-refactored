@@ -9,9 +9,7 @@ import edu.ccrm.exception.StudentNotFoundException;
 import edu.ccrm.service.proxy.DataStoreInterface;
 import edu.ccrm.util.TranscriptFormatter;
 
-/**
- * Proxy Pattern: Now uses DataStoreInterface instead of concrete DataStore.
- */
+
 public class StudentService {
     private final DataStoreInterface dataStore;
     private final TranscriptFormatter transcriptFormatter;

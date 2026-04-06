@@ -10,10 +10,7 @@ import edu.ccrm.service.StudentService;
 import edu.ccrm.service.proxy.DataStoreInterface;
 import edu.ccrm.util.InputValidator;
 
-/**
- * Factory Method Pattern: Uses StudentFactory to create Student objects.
- * Proxy Pattern:          Uses DataStoreInterface instead of concrete DataStore.
- */
+
 public class StudentManagementHelper {
     private final StudentService studentService;
     private final DataStoreInterface dataStore;

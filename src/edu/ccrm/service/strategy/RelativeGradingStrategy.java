@@ -2,10 +2,6 @@ package edu.ccrm.service.strategy;
 
 import edu.ccrm.domain.Grade;
 
-/**
- * Strategy Pattern: Lenient/curved grading with lower thresholds.
- * 85+ = S, 75+ = A, 65+ = B, 55+ = C, 45+ = D, 35+ = E, below = F.
- */
 public class RelativeGradingStrategy implements GradingStrategy {
     @Override
     public Grade determineGrade(int marks) {

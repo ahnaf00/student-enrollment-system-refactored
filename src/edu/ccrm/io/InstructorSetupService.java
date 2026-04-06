@@ -6,10 +6,7 @@ import edu.ccrm.domain.Instructor;
 import edu.ccrm.factory.InstructorFactory;
 import edu.ccrm.service.proxy.DataStoreInterface;
 
-/**
- * Factory Method Pattern: Uses InstructorFactory to create Instructor objects.
- * Proxy Pattern:          Uses DataStoreInterface instead of concrete DataStore.
- */
+
 public class InstructorSetupService {
     private final DataStoreInterface dataStore;
     private final InstructorFactory instructorFactory = new InstructorFactory();

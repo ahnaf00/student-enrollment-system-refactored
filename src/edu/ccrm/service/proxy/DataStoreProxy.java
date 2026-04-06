@@ -7,7 +7,6 @@ import edu.ccrm.domain.Instructor;
 import edu.ccrm.domain.Student;
 
 /**
- * Proxy Pattern: Validates all inputs before delegating to the real DataStore.
  * The calling code doesn't know it's talking to a proxy — it sees the same interface.
  */
 public class DataStoreProxy implements DataStoreInterface {

@@ -3,9 +3,7 @@ package edu.ccrm.service.observer;
 import edu.ccrm.domain.Course;
 import edu.ccrm.domain.Student;
 
-/**
- * Observer Pattern: Concrete observer that sends user-facing notifications.
- */
+
 public class EnrollmentNotifier implements EnrollmentObserver {
     @Override
     public void onEnrollment(Student student, Course course) {

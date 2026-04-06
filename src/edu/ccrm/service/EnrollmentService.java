@@ -13,12 +13,7 @@ import edu.ccrm.service.mediator.ServiceMediator;
 import edu.ccrm.service.observer.EnrollmentObserver;
 import edu.ccrm.service.strategy.GradingStrategy;
 
-/**
- * Decorator Pattern: Implements EnrollmentServiceInterface so it can be wrapped by decorators.
- * Mediator Pattern:  Uses ServiceMediator instead of direct StudentService/CourseService references.
- * Strategy Pattern:  Uses GradingStrategy for pluggable grading algorithms.
- * Observer Pattern:  Notifies registered observers on enrollment and grading events.
- */
+
 public class EnrollmentService implements EnrollmentServiceInterface {
     private final ServiceMediator mediator;
     private final GradingStrategy gradingStrategy;

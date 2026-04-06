@@ -4,7 +4,6 @@ import edu.ccrm.exception.DuplicateEnrollmentException;
 import edu.ccrm.exception.MaxCreditLimitExceededException;
 
 /**
- * Decorator Pattern: Abstract base decorator that wraps an EnrollmentServiceInterface.
  * Concrete decorators extend this to add behavior (logging, notifications, etc.).
  */
 public abstract class EnrollmentServiceDecorator implements EnrollmentServiceInterface {

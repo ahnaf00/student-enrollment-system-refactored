@@ -6,7 +6,6 @@ import edu.ccrm.service.CourseService;
 import edu.ccrm.service.StudentService;
 
 /**
- * Mediator Pattern: Concrete mediator that coordinates enrollment operations
  * between StudentService and CourseService. Reduces direct coupling.
  */
 public class EnrollmentMediator implements ServiceMediator {

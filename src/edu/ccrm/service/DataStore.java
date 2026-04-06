@@ -10,9 +10,7 @@ import edu.ccrm.domain.Instructor;
 import edu.ccrm.domain.Student;
 import edu.ccrm.service.proxy.DataStoreInterface;
 
-/**
- * Proxy Pattern: Now implements DataStoreInterface so it can be wrapped by DataStoreProxy.
- */
+
 public class DataStore implements DataStoreInterface {
     private final Map<String, Student> students = new HashMap<>();
     private final Map<String, Course> courses = new HashMap<>();

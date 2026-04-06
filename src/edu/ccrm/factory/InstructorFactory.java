@@ -4,7 +4,6 @@ import edu.ccrm.domain.Instructor;
 import java.time.LocalDate;
 
 /**
- * Factory Method Pattern: Concrete factory that creates Instructor objects.
  * extras[0] = department, extras[1] = officeLocation
  */
 public class InstructorFactory extends PersonFactory {

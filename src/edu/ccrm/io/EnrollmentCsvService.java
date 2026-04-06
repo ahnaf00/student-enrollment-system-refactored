@@ -11,10 +11,7 @@ import edu.ccrm.io.adapter.ExportFormatAdapter;
 import edu.ccrm.service.proxy.DataStoreInterface;
 import edu.ccrm.util.RecursiveFileUtils;
 
-/**
- * Adapter Pattern: Uses ExportFormatAdapter for formatting enrollment export data.
- * Proxy Pattern:   Uses DataStoreInterface instead of concrete DataStore.
- */
+
 public class EnrollmentCsvService {
     private final DataStoreInterface dataStore;
     private final Path dataDir;

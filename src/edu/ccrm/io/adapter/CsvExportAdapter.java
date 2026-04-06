@@ -4,7 +4,6 @@ import edu.ccrm.domain.Enrollment;
 import edu.ccrm.domain.Student;
 
 /**
- * Adapter Pattern: Adapts internal domain objects to CSV string format.
  * Implements ExportFormatAdapter to provide CSV-specific formatting.
  */
 public class CsvExportAdapter implements ExportFormatAdapter {

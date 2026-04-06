@@ -4,7 +4,6 @@ import edu.ccrm.domain.Person;
 import java.time.LocalDate;
 
 /**
- * Factory Method Pattern: Abstract factory for creating Person objects.
  * Subclasses (StudentFactory, InstructorFactory) decide which concrete class to instantiate.
  */
 public abstract class PersonFactory {
