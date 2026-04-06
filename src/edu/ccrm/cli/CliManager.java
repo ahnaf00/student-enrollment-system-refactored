@@ -29,24 +29,7 @@ import edu.ccrm.service.strategy.GradingStrategy;
 import edu.ccrm.service.strategy.StandardGradingStrategy;
 import edu.ccrm.util.InputValidator;
 
-/**
- * Main entry point — wires together all design patterns:
- *
- * CREATIONAL:
- *   - Singleton:       AppConfig.getInstance()
- *   - Factory Method:  Used inside StudentCsvService, InstructorSetupService, StudentManagementHelper
- *
- * STRUCTURAL:
- *   - Proxy:           DataStoreProxy wraps DataStore for validation
- *   - Decorator:       LoggingEnrollmentDecorator wraps EnrollmentService
- *   - Bridge:          ConsoleReportRenderer injected into ReportService
- *   - Adapter:         CsvExportAdapter used inside StudentCsvService, EnrollmentCsvService
- *
- * BEHAVIORAL:
- *   - Strategy:        StandardGradingStrategy injected into EnrollmentService
- *   - Mediator:        EnrollmentMediator coordinates StudentService ↔ CourseService
- *   - Observer:        EnrollmentLogger + EnrollmentNotifier registered as observers
- */
+
 public class CliManager {
     private static final Scanner scanner = new Scanner(System.in);
 
