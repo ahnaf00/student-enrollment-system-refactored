@@ -4,7 +4,7 @@ package edu.ccrm.config;
  * Application configuration using the Singleton Design Pattern.
  */
 public class AppConfig {
-    private static AppConfig instance;
+    private static volatile AppConfig instance;
     private final String dataDirectory = "data";
     private final String backupDirectory = "backup";
     private final int maxCreditsPerSemester = 18;
@@ -15,7 +15,11 @@ public class AppConfig {
 
     public static AppConfig getInstance() {
         if (instance == null) {
-            instance = new AppConfig();
+            synchronized (AppConfig.class) {
+                if (instance == null) {
+                    instance = new AppConfig();
+                }
+            }
         }
         return instance;
     }

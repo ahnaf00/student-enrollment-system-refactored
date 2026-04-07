@@ -4,13 +4,16 @@ import java.util.Scanner;
 
 import edu.ccrm.exception.DuplicateEnrollmentException;
 import edu.ccrm.exception.MaxCreditLimitExceededException;
-import edu.ccrm.service.EnrollmentService;
+import edu.ccrm.service.decorator.EnrollmentServiceInterface;
 import edu.ccrm.util.InputValidator;
 
+/**
+ * This allows transparent wrapping with LoggingEnrollmentDecorator.
+ */
 public class EnrollmentManagementHelper {
-    private final EnrollmentService enrollmentService;
+    private final EnrollmentServiceInterface enrollmentService;
     
-    public EnrollmentManagementHelper(EnrollmentService enrollmentService) {
+    public EnrollmentManagementHelper(EnrollmentServiceInterface enrollmentService) {
         this.enrollmentService = enrollmentService;
     }
     

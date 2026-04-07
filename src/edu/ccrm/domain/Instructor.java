@@ -2,9 +2,7 @@ package edu.ccrm.domain;
 
 import java.time.LocalDate;
 
-/**
- * Represents an instructor, extending the Person class.
- */
+
 public class Instructor extends Person {
     private String department;
     private String officeLocation;

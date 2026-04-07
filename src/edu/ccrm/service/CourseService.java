@@ -8,11 +8,13 @@ import java.util.stream.Collectors;
 import edu.ccrm.domain.Course;
 import edu.ccrm.domain.Semester;
 import edu.ccrm.exception.CourseNotFoundException;
+import edu.ccrm.service.proxy.DataStoreInterface;
+
 
 public class CourseService {
-    private final DataStore dataStore;
+    private final DataStoreInterface dataStore;
     
-    public CourseService(DataStore dataStore) {
+    public CourseService(DataStoreInterface dataStore) {
         this.dataStore = dataStore;
     }
     

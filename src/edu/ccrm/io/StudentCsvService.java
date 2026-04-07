@@ -9,14 +9,20 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import edu.ccrm.domain.Student;
-import edu.ccrm.service.DataStore;
+import edu.ccrm.factory.StudentFactory;
+import edu.ccrm.io.adapter.CsvExportAdapter;
+import edu.ccrm.io.adapter.ExportFormatAdapter;
+import edu.ccrm.service.proxy.DataStoreInterface;
 import edu.ccrm.util.RecursiveFileUtils;
 
+
 public class StudentCsvService {
-    private final DataStore dataStore;
+    private final DataStoreInterface dataStore;
     private final Path dataDir;
+    private final StudentFactory studentFactory = new StudentFactory();
+    private final ExportFormatAdapter formatAdapter = new CsvExportAdapter();
     
-    public StudentCsvService(DataStore dataStore, Path dataDir) {
+    public StudentCsvService(DataStoreInterface dataStore, Path dataDir) {
         this.dataStore = dataStore;
         this.dataDir = dataDir;
     }
@@ -32,12 +38,11 @@ public class StudentCsvService {
             lines.skip(1)
                 .map(line -> line.split(","))
                 .forEach(parts -> {
-                    Student student = new Student(
+                    Student student = studentFactory.createPerson(
                         Integer.parseInt(parts[0]),
-                        parts[1],
-                        parts[2],
-                        parts[3],
-                        LocalDate.parse(parts[4])
+                        parts[2], parts[3],
+                        LocalDate.parse(parts[4]),
+                        parts[1]
                     );
                     dataStore.addStudent(student);
                 });
@@ -50,12 +55,10 @@ public class StudentCsvService {
         Path studentsFile = dataDir.resolve("students_export.csv");
         
         List<String> lines = dataStore.getAllStudents().stream()
-            .map(student -> String.format("%d,%s,%s,%s,%s,%s",
-            		student.getId(), student.getRegNo(), student.getFullName(),
-            		student.getEmail(), student.getDateOfBirth(), student.getStatus()))
+            .map(student -> formatAdapter.formatStudentRecord(student))
             .collect(Collectors.toList());
         
-        lines.add(0, "id,regNo,fullName,email,dob,status");
+        lines.add(0, formatAdapter.getStudentHeader());
         Files.write(studentsFile, lines);
     }
 }

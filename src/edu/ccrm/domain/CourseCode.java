@@ -2,7 +2,6 @@ package edu.ccrm.domain;
 
 /**
  * An immutable value class for Course Code.
- * Demonstrates: Immutability (final fields, no setters).
  */
 public final class CourseCode {
     private final String departmentPrefix;

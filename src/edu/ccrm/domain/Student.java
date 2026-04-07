@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * Represents a student, extending the Person class.
- * Demonstrates: Inheritance, Encapsulation.
  */
 public class Student extends Person {
     private String regNo;
@@ -43,7 +42,6 @@ public class Student extends Person {
         this.enrolledCourses.add(enrollment);
     }
 
-    // Getters and Setters
     public String getRegNo() {
         return regNo;
     }

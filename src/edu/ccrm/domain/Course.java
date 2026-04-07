@@ -2,7 +2,6 @@ package edu.ccrm.domain;
 
 /**
  * Represents a course.
- * Demonstrates: Builder Design Pattern, static nested class.
  */
 public class Course {
     private final CourseCode courseCode;
@@ -23,7 +22,6 @@ public class Course {
         this.active = true;
     }
 
-    // Static nested class for the Builder Pattern
     public static class Builder {
         private CourseCode courseCode;
         private String title;
@@ -69,7 +67,6 @@ public class Course {
                 courseCode.getFullCode(), title, instructor.getFullName(), semester, credits);
     }
     
-    // Getters
     public CourseCode getCourseCode() {
         return courseCode;
     }

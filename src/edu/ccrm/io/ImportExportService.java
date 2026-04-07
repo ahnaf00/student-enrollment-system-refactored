@@ -5,8 +5,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import edu.ccrm.config.AppConfig;
-import edu.ccrm.service.DataStore;
+import edu.ccrm.service.proxy.DataStoreInterface;
 import edu.ccrm.util.RecursiveFileUtils;
+
 
 public class ImportExportService {
     private final Path dataDir;
@@ -15,7 +16,7 @@ public class ImportExportService {
     private final EnrollmentCsvService enrollmentCsvService;
     private final InstructorSetupService instructorSetupService;
     
-    public ImportExportService(DataStore dataStore) {
+    public ImportExportService(DataStoreInterface dataStore) {
         this.dataDir = Paths.get(AppConfig.getInstance().getDataDirectory());
         
         this.studentCsvService = new StudentCsvService(dataStore, dataDir);
