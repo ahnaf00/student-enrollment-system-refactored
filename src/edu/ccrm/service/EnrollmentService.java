@@ -48,6 +48,8 @@ public class EnrollmentService implements EnrollmentServiceInterface {
         Student student = mediator.findStudent(regNo);
         Enrollment enrollment = findEnrollment(student, courseCode);
 
+        Enrollment enrollment = findEnrollment(student, courseCode);
+        
         if (enrollment != null) {
             enrollment.setGrade(gradingStrategy.determineGrade(marks));
             System.out.println("Grade recorded successfully for " + regNo + " in " + courseCode);
@@ -95,4 +97,13 @@ public class EnrollmentService implements EnrollmentServiceInterface {
             observer.onGradeRecorded(student, course, grade);
         }
     }
+     
+    private Enrollment findEnrollment(Student student, String courseCode) {
+        return student.getEnrolledCourses().stream()
+                .filter(enrollment ->
+                    enrollment.getCourse().getCourseCode().getFullCode()
+                        .equals(courseCode))
+                .findFirst().orElse(null);
+    }
+
 }

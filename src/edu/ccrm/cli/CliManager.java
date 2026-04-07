@@ -71,7 +71,7 @@ public class CliManager {
 
         System.out.println("Welcome to the Student Course & Enrollment Management System!");
         System.out.println("Configuration loaded. Data directory: " + AppConfig.getInstance().getDataDirectory());
-
+        
         importExportService.importData();
 
         boolean running = true;
@@ -96,7 +96,7 @@ public class CliManager {
 
         scanner.close();
     }
-
+    
     private static void printMainMenu() {
         System.out.println("\n--- Main Menu ---");
         System.out.println("1. Manage Students");
@@ -106,7 +106,7 @@ public class CliManager {
         System.out.println("5. View Reports");
         System.out.println("6. Exit");
     }
-
+    
     private static void printPlatformNote() {
         System.out.println("\n--- Java Platform Summary ---");
         System.out.println(" * Java SE (Standard Edition): Core Java platform for desktop and server applications.");

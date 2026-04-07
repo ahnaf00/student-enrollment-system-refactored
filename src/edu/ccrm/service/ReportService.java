@@ -20,4 +20,5 @@ public class ReportService {
         GpaDistributionReport report = new GpaDistributionReport(renderer, dataStore);
         report.generate();
     }
+
 }
